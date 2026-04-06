@@ -138,7 +138,7 @@ function SettingsPage({ token, user, initialSettings, onSettingsSaved, onUserUpd
   }
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: '32px 40px', display: 'grid', gridTemplateColumns: '1fr', gap: 22 }}>
+    <div className="page-shell page-grid" style={{ gridTemplateColumns: '1fr', gap: 22 }}>
       <Panel title="Settings" subtitle="Manage profile, preferences, and appearance in one panel">
         <div style={{ display: 'grid', gap: 24 }}>
           <section>
@@ -185,7 +185,7 @@ function SettingsPage({ token, user, initialSettings, onSettingsSaved, onUserUpd
                 const activeBorder = isActive ? (isDarkMode ? `${C.accent}55` : `${C.green}55`) : C.borderHi;
 
                 return (
-                  <div key={key} style={{ display: 'flex', justifyContent: 'space-between', gap: 16, padding: '14px 0', borderBottom: `1px solid ${C.border}` }}>
+                  <div key={key} style={{ display: 'flex', justifyContent: 'space-between', gap: 16, padding: '14px 0', borderBottom: `1px solid ${C.border}`, flexWrap: 'wrap' }}>
                     <div>
                       <div style={{ fontWeight: 700 }}>{label}</div>
                       <div style={{ color: C.textMuted, fontSize: 12, marginTop: 4 }}>{hint}</div>
@@ -213,7 +213,7 @@ function SettingsPage({ token, user, initialSettings, onSettingsSaved, onUserUpd
             </div>
 
             <div style={{ marginTop: 18, padding: 14, borderRadius: 12, background: C.surface, border: `1px solid ${C.border}` }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
                 <div>
                   <div style={{ fontWeight: 700 }}>Browser notification status</div>
                   <div style={{ color: C.textMuted, fontSize: 12, marginTop: 4 }}>
@@ -244,7 +244,7 @@ function SettingsPage({ token, user, initialSettings, onSettingsSaved, onUserUpd
           </section>
 
           <section>
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
               <div style={{ color: saveNotice.includes('saved') ? C.green : C.textMuted, fontSize: 12 }}>
                 {saveNotice || 'Save profile and preference changes together.'}
               </div>

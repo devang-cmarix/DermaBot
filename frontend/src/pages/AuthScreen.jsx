@@ -38,30 +38,22 @@ function AuthScreen({ onAuthenticated }) {
         };
   return (
     <div
+      className="auth-shell"
       style={{
-        minHeight: "100vh",
-        display: "grid",
-        placeItems: "center",
-        padding: 32,
         background:
           "radial-gradient(circle at 20% 20%, rgba(79,142,247,0.22), transparent 40%), radial-gradient(circle at 80% 80%, rgba(34,211,160,0.15), transparent 40%), #10131a",
       }}
     >
       <div
-        className="fade-up"
+        className="fade-up auth-panel"
         style={{
-          width: "100%",
-          maxWidth: 1040,
-          display: "grid",
-          gridTemplateColumns: "1.1fr 0.9fr",
           background: "rgba(24,28,39,0.98)",
           border: `1.5px solid ${C.borderHi}`,
           borderRadius: 32,
-          overflow: "hidden",
           boxShadow: "0 12px 48px 0 rgba(44, 62, 80, 0.18)",
         }}
       >
-        <div style={{ padding: 56, display: "flex", flexDirection: "column", gap: 32, justifyContent: "center" }}>
+        <div style={{ padding: "clamp(24px, 5vw, 56px)", display: "flex", flexDirection: "column", gap: 32, justifyContent: "center" }}>
 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
     <div style={{
         width: 40, height: 40, borderRadius: 12,
@@ -81,7 +73,7 @@ function AuthScreen({ onAuthenticated }) {
               Sign in to create private chat sessions, continue follow-up questions, and keep your consultation history attached to your account.
             </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 18, marginTop: 18 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 18, marginTop: 18 }}>
             {[
               ["Private sessions", "Each user gets isolated chats in MongoDB."],
               ["Conversation memory", "Recent messages are reused for follow-up answers."],
@@ -106,7 +98,7 @@ function AuthScreen({ onAuthenticated }) {
           </div>
         </div>
 
-        <div style={{ padding: 48, background: "linear-gradient(180deg, rgba(24,28,39,0.98), rgba(19,22,30,1))", display: "flex", flexDirection: "column", justifyContent: "center", minHeight: 480 }}>
+        <div style={{ padding: "clamp(24px, 5vw, 48px)", background: "linear-gradient(180deg, rgba(24,28,39,0.98), rgba(19,22,30,1))", display: "flex", flexDirection: "column", justifyContent: "center", minHeight: 480 }}>
           <div style={{ display: "flex", gap: 14, marginBottom: 32 }}>
             {["login", "register"].map((value) => (
               <button

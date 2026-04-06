@@ -99,7 +99,7 @@ function DocsPage() {
   ];
 
   return (
-    <div style={{ flex: 1, overflowY: "auto", padding: "32px 40px", display: "flex", flexDirection: "column", gap: 32 }}>
+    <div className="page-shell page-stack" style={{ gap: 32 }}>
       <div>
         <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800, fontSize: 32, marginBottom: 8 }}>MediBot Documentation</div>
         <div style={{ color: C.textMuted, lineHeight: 1.7, maxWidth: 600 }}>
@@ -129,7 +129,7 @@ function DocsPage() {
 
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 18, padding: 24 }}>
         <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800, marginBottom: 16 }}>Page Guide</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: 20 }}>
           {pageGuide.map((page) => (
             <div key={page.title} style={{ border: `1px solid ${C.border}`, borderRadius: 14, padding: 18 }}>
               <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800, color: page.color, marginBottom: 8 }}>{page.title}</div>

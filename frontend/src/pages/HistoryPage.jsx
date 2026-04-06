@@ -41,7 +41,7 @@ function HistoryPage({ token }) {
   if (loading) return <div style={{ padding: 40, color: C.textMuted }}>Loading history...</div>;
 
   return (
-    <div style={{ flex: 1, overflowY: "auto", padding: "32px 40px", display: "flex", flexDirection: "column", gap: 18 }}>
+    <div className="page-shell page-stack" style={{ gap: 18 }}>
       <input
         value={search}
         onChange={(event) => setSearch(event.target.value)}
@@ -57,7 +57,7 @@ function HistoryPage({ token }) {
       />
       {filtered.map((entry, index) => (
         <div key={`${entry.session_id}-${index}`} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 18, padding: 22 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 16, marginBottom: 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 16, marginBottom: 12, flexWrap: "wrap" }}>
             <Badge color={C.accent}>{entry.session_title || entry.tag}</Badge>
             <div style={{ fontSize: 12, color: C.textMuted }}>{entry.date}</div>
           </div>

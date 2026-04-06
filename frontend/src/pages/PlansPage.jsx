@@ -11,7 +11,7 @@ function PlansPage() {
   }, []);
 
   return (
-    <div style={{ flex: 1, overflowY: "auto", padding: "32px 40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
+    <div className="page-shell page-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: 20 }}>
       {plans.map((plan) => (
         <div key={plan.name} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 18, padding: 24, display: "flex", flexDirection: "column", gap: 16 }}>
           <div>

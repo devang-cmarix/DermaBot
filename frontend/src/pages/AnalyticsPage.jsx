@@ -21,8 +21,8 @@ function AnalyticsPage({ token }) {
   const max = Math.max(...analytics.chart.values, 1);
 
   return (
-    <div style={{ flex: 1, overflowY: "auto", padding: "32px 40px", display: "flex", flexDirection: "column", gap: 24 }}>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 16 }}>
+    <div className="page-shell page-stack">
+      <div className="page-grid page-grid-stats" style={{ gap: 16 }}>
         {analytics.stats.map((item) => (
           <div key={item.label} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 18, padding: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
@@ -37,7 +37,7 @@ function AnalyticsPage({ token }) {
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 20 }}>
+      <div className="page-grid page-grid-two">
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 18, padding: 24 }}>
           <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800, marginBottom: 20 }}>Queries This Week</div>
           <div style={{ display: "flex", alignItems: "flex-end", gap: 12, height: 180 }}>

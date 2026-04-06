@@ -103,7 +103,7 @@ function ApiSdkPage({ token }) {
   }
 };
   return (
-    <div style={{ flex: 1, overflowY: "auto", padding: "32px 40px", display: "flex", flexDirection: "column", gap: 22 }}>
+    <div className="page-shell page-stack" style={{ gap: 22 }}>
       {error && (
         <div style={{ color: C.red, background: `${C.red}12`, border: `1px solid ${C.red}33`, padding: "12px 16px", borderRadius: 12 }}>
           {error}
@@ -140,7 +140,7 @@ function ApiSdkPage({ token }) {
       </div>
 
       {/* API info + Create key */}
-      <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 20 }}>
+      <div className="page-grid page-grid-two">
         <Panel title="Production API" subtitle="Base URL for all requests">
           <div style={{
             background: C.surface, border: `1px solid ${C.borderHi}`,
@@ -210,7 +210,7 @@ function ApiSdkPage({ token }) {
                 padding: "12px 16px", borderRadius: 12, cursor: "pointer",
                 border: `1px solid ${selectedSessionId === s.id ? C.accent : C.border}`,
                 background: selectedSessionId === s.id ? C.accentSoft : C.surface,
-                transition: "all .15s", display: "flex", justifyContent: "space-between", alignItems: "center",
+                transition: "all .15s", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap",
               }}>
                 <div>
                   <div style={{ fontWeight: 700, color: selectedSessionId === s.id ? C.accent : C.text }}>
@@ -243,7 +243,7 @@ function ApiSdkPage({ token }) {
             <div key={apiKey.id} style={{
               display: "flex", justifyContent: "space-between", gap: 16,
               padding: "14px 16px", borderRadius: 12,
-              background: C.surface, border: `1px solid ${C.border}`,
+              background: C.surface, border: `1px solid ${C.border}`, flexWrap: "wrap",
             }}>
               <div>
                 <div style={{ fontWeight: 700 }}>{apiKey.name}</div>
@@ -272,7 +272,7 @@ function ApiSdkPage({ token }) {
       </Panel>
 
       {/* Code examples */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+      <div className="page-grid page-grid-two">
         <CodePanel title="Python SDK"     color={C.green}  code={pythonCode} />
         <CodePanel title="JavaScript SDK" color={C.yellow} code={javascriptCode} />
       </div>

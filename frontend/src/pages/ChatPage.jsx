@@ -17,6 +17,12 @@ function ChatPage({ token, notificationsEnabled = false }) {
   const fileInputRef = useRef(null);
   const userAwayRef = useRef(false);
   const user = JSON.parse(localStorage.getItem("medibot_user"));
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth <= 820 : false
+  );
+  const [showSessions, setShowSessions] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth > 820 : true
+  );
 
   // ✅ Load sessions and suggestions
   useEffect(() => {
@@ -65,6 +71,21 @@ function ChatPage({ token, notificationsEnabled = false }) {
       window.removeEventListener("blur", updateAwayState);
       window.removeEventListener("focus", updateAwayState);
     };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const onResize = () => {
+      const mobile = window.innerWidth <= 820;
+      setIsMobile(mobile);
+      setShowSessions((prev) => (mobile ? prev : true));
+    };
+
+    onResize();
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   const clearAttachedImage = () => {
@@ -225,23 +246,43 @@ const deleteSession = async (sessionId, event) => {
   };
 
   return (
-    <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
+    <div className="chat-shell">
       {/* Sessions sidebar */}
-      <div style={{
-        width: 250, borderRight: `1px solid ${C.border}`,
-        background: C.surface, display: "flex", flexDirection: "column",
-        padding: 14, gap: 10,
+      {(!isMobile || showSessions) && (
+      <div className="chat-sessions" style={{
+        borderRight: isMobile ? "none" : `1px solid ${C.border}`,
+        borderBottom: isMobile ? `1px solid ${C.border}` : "none",
+        background: C.surface,
       }}>
         <div style={{ fontSize: 11, color: C.textMuted, letterSpacing: 1, fontWeight: 700, padding: "6px 8px 0" }}>
           PRIVATE SESSIONS
         </div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <button onClick={createNewChat} style={{
+          flex: 1,
           padding: "12px 14px", borderRadius: 12,
           border: `1px dashed ${C.borderHi}`, background: "transparent",
           color: C.accent, cursor: "pointer", fontWeight: 700,
         }}>
           + New Chat
         </button>
+        {isMobile && (
+          <button
+            type="button"
+            onClick={() => setShowSessions(false)}
+            style={{
+              padding: "12px 14px",
+              borderRadius: 12,
+              border: `1px solid ${C.borderHi}`,
+              background: C.card,
+              color: C.textMuted,
+              fontWeight: 700,
+            }}
+          >
+            Hide
+          </button>
+        )}
+        </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, overflowY: "auto" }}>
           {/* ✅ Safe array check */}
           {(sessions || []).map((session) => (
@@ -280,10 +321,29 @@ const deleteSession = async (sessionId, event) => {
           ))}
         </div>
       </div>
+      )}
 
       {/* Chat area */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
-        <div style={{ flex: 1, overflowY: "auto", padding: "24px 32px", display: "flex", flexDirection: "column", gap: 18 }}>
+      <div className="chat-main">
+        {isMobile && !showSessions && (
+          <div style={{ padding: "12px 16px 0" }}>
+            <button
+              type="button"
+              onClick={() => setShowSessions(true)}
+              style={{
+                padding: "10px 14px",
+                borderRadius: 12,
+                border: `1px solid ${C.borderHi}`,
+                background: C.card,
+                color: C.text,
+                fontWeight: 700,
+              }}
+            >
+              View sessions
+            </button>
+          </div>
+        )}
+        <div className="chat-messages">
           {!messages.length && (
             <div className="fade-up" style={{
               padding: 24, borderRadius: 22,
@@ -300,20 +360,16 @@ const deleteSession = async (sessionId, event) => {
           )}
 
           {(messages || []).map((message, index) => (
-    <div key={`${message.role}-${index}`} className="fade-up" style={{
-        display: "flex", gap: 12,
-        flexDirection: message.role === "user" ? "row-reverse" : "row",
-        alignItems: "flex-end",
-    }}>
+    <div
+      key={`${message.role}-${index}`}
+      className={`fade-up chat-message-row${message.role === "user" ? " is-user" : ""}`}
+    >
         <Avatar
   name={message.role === "user" ? user?.name : "M"}
   size={34}
   color={message.role === "user" ? C.accent : C.green}
 />
-        <div style={{
-            maxWidth: "70%", display: "flex", flexDirection: "column",
-            alignItems: message.role === "user" ? "flex-end" : "flex-start", gap: 5,
-        }}>
+        <div className={`chat-message-content ${message.role === "user" ? "is-user" : "is-bot"}`}>
             {/* ✅ Show image if attached */}
             {message.image_url && (
                 <img
@@ -369,7 +425,7 @@ const deleteSession = async (sessionId, event) => {
         </div>
 
         {!messages.length && suggestions.length > 0 && (
-          <div style={{ padding: "0 32px 16px", display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <div className="chat-suggestions">
             {suggestions.map((item) => (
               <button key={item} onClick={() => send(item)} style={{
                 padding: "9px 14px", borderRadius: 999,
@@ -381,7 +437,7 @@ const deleteSession = async (sessionId, event) => {
         )}
 
         {/* Input bar */}
-        <div style={{ padding: "16px 32px 24px", borderTop: `1px solid ${C.border}`, background: C.surface }}>
+        <div className="chat-input-wrap" style={{ borderTop: `1px solid ${C.border}`, background: C.surface }}>
           {attachedImage && (
             <div style={{
               marginBottom: 12, display: "flex", alignItems: "center",
@@ -409,10 +465,8 @@ const deleteSession = async (sessionId, event) => {
           <input ref={fileInputRef} type="file" accept="image/*"
             onChange={handleImageSelection} style={{ display: "none" }} />
 
-          <div style={{
-            display: "flex", gap: 10, alignItems: "flex-end",
+          <div className="chat-composer" style={{
             background: C.card, border: `1px solid ${C.borderHi}`,
-            borderRadius: 18, padding: "8px 8px 8px 16px",
           }}>
             <button onClick={() => fileInputRef.current?.click()} disabled={loading}
               style={{

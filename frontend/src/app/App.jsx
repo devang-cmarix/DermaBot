@@ -64,6 +64,10 @@ export default function App() {
   const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY) || "");
   const [page, setPage] = useState("chat");
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth <= 820 : false
+  );
   const [settings, setSettings] = useState(null);
   const [booting, setBooting] = useState(Boolean(localStorage.getItem(TOKEN_KEY)));
 
@@ -126,6 +130,22 @@ export default function App() {
     }
   }, [settings?.darkMode]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
+    const onResize = () => setIsMobile(window.innerWidth <= 820);
+    onResize();
+    window.addEventListener('resize', onResize);
+
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setMobileNavOpen(false);
+    }
+  }, [isMobile]);
+
   if (booting) {
     return (
       <div style={{ minHeight: "100vh", display: "grid", placeItems: "center",
@@ -154,11 +174,25 @@ export default function App() {
   };
 
   return (
-    <div style={{ height: "100vh", display: "flex", background: C.bg, color: C.text }}>
-      <Sidebar page={page} setPage={setPage} collapsed={collapsed}
-        setCollapsed={setCollapsed} user={user} onLogout={onLogout} />
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
-        <Topbar title={PAGE_META[page]?.title} subtitle={PAGE_META[page]?.subtitle} />
+    <div className="app-shell" style={{ background: C.bg, color: C.text }}>
+      <Sidebar
+        page={page}
+        setPage={setPage}
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        user={user}
+        onLogout={onLogout}
+        isMobile={isMobile}
+        mobileOpen={mobileNavOpen}
+        onClose={() => setMobileNavOpen(false)}
+      />
+      <div className="app-main">
+        <Topbar
+          title={PAGE_META[page]?.title}
+          subtitle={PAGE_META[page]?.subtitle}
+          isMobile={isMobile}
+          onMenuClick={() => setMobileNavOpen(true)}
+        />
         {renderPage()}
       </div>
     </div>

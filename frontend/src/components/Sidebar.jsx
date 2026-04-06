@@ -2,19 +2,27 @@ import React from 'react';
 import { C, NAV } from '../constants/constants';
 import Avatar from './Avatar';
 
-function Sidebar({ page, setPage, collapsed, setCollapsed, user, onLogout }) {
+function Sidebar({ page, setPage, collapsed, setCollapsed, user, onLogout, isMobile, mobileOpen, onClose }) {
+  const handleNavigate = (nextPage) => {
+    setPage(nextPage);
+    if (isMobile) {
+      onClose?.();
+    }
+  };
+
   return (
-    <aside
-      style={{
-        width: collapsed ? 76 : 238,
-        flexShrink: 0,
-        background: C.surface,
-        borderRight: `1px solid ${C.border}`,
-        display: "flex",
-        flexDirection: "column",
-        transition: "width .25s ease",
-      }}
-    >
+    <>
+      <div
+        className={`sidebar-backdrop${mobileOpen ? ' is-open' : ''}`}
+        onClick={onClose}
+      />
+      <aside
+        className={`app-sidebar${collapsed ? ' is-collapsed' : ''}${mobileOpen ? ' is-open' : ''}`}
+        style={{
+          background: C.surface,
+          borderRight: `1px solid ${C.border}`,
+        }}
+      >
       <div
         style={{
           height: 72,
@@ -45,7 +53,7 @@ function Sidebar({ page, setPage, collapsed, setCollapsed, user, onLogout }) {
         {NAV.map((item) => (
           <button
             key={item.id}
-            onClick={() => setPage(item.id)}
+            onClick={() => handleNavigate(item.id)}
             style={{
               display: "flex",
               alignItems: "center",
@@ -68,7 +76,13 @@ function Sidebar({ page, setPage, collapsed, setCollapsed, user, onLogout }) {
 
       <div style={{ padding: 10, borderTop: `1px solid ${C.border}`, display: "flex", flexDirection: "column", gap: 10 }}>
         <button
-          onClick={() => setCollapsed((value) => !value)}
+          onClick={() => {
+            if (isMobile) {
+              onClose?.();
+              return;
+            }
+            setCollapsed((value) => !value);
+          }}
           style={{
             padding: "11px 12px",
             borderRadius: 12,
@@ -78,7 +92,7 @@ function Sidebar({ page, setPage, collapsed, setCollapsed, user, onLogout }) {
             cursor: "pointer",
           }}
         >
-          {collapsed ? "→" : "← Collapse"}
+          {isMobile ? "Close menu" : collapsed ? "→" : "← Collapse"}
         </button>
         <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "2px 4px" }}>
           <Avatar name={user?.name || "U"} size={34} color={C.green} />
@@ -106,7 +120,8 @@ function Sidebar({ page, setPage, collapsed, setCollapsed, user, onLogout }) {
           </button>
         )}
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }
 

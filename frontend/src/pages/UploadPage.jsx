@@ -47,7 +47,7 @@ const analyze = async () => {
 
 
   return (
-    <div style={{ flex: 1, overflowY: "auto", padding: "32px 40px", display: "flex", flexDirection: "column", gap: 24 }}>
+    <div className="page-shell page-stack">
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
         {uploadTypes.map((type) => (
           <Badge key={type.name} color={type.color}>
@@ -72,7 +72,7 @@ const analyze = async () => {
         style={{
           border: `2px dashed ${dragging ? C.accent : C.borderHi}`,
           borderRadius: 24,
-          padding: "64px 40px",
+          padding: "clamp(32px, 8vw, 64px) clamp(20px, 5vw, 40px)",
           background: dragging ? C.accentSoft : C.card,
           textAlign: "center",
           cursor: "pointer",
