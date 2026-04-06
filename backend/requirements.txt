@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+pymongo
+langchain-community
+langchain-cohere
+sentence-transformers
+Pillow
+numpy
+python-multipart
+python-doctr
+transformers
+torch
+python-dotenv
