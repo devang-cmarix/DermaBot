@@ -41,54 +41,55 @@ function AuthScreen({ onAuthenticated }) {
       className="auth-shell"
       style={{
         background:
-          "radial-gradient(circle at 20% 20%, rgba(79,142,247,0.22), transparent 40%), radial-gradient(circle at 80% 80%, rgba(34,211,160,0.15), transparent 40%), #10131a",
+          "radial-gradient(circle at 18% 18%, rgba(15,118,110,0.12), transparent 30%), radial-gradient(circle at 82% 20%, rgba(23,114,69,0.1), transparent 28%), linear-gradient(180deg, rgba(245,247,244,0.98), rgba(239,243,239,0.98))",
       }}
     >
       <div
         className="fade-up auth-panel"
         style={{
-          background: "rgba(24,28,39,0.98)",
-          border: `1.5px solid ${C.borderHi}`,
-          borderRadius: 32,
-          boxShadow: "0 12px 48px 0 rgba(44, 62, 80, 0.18)",
+          background: "rgba(255,255,255,0.78)",
+          border: `1px solid ${C.borderHi}`,
+          boxShadow: "0 28px 80px rgba(17, 23, 20, 0.12)",
+          backdropFilter: "blur(18px)",
         }}
       >
-        <div style={{ padding: "clamp(24px, 5vw, 56px)", display: "flex", flexDirection: "column", gap: 32, justifyContent: "center" }}>
+        <div style={{ padding: "clamp(24px, 5vw, 56px)", display: "flex", flexDirection: "column", gap: 32, justifyContent: "center", background: "linear-gradient(180deg, rgba(255,255,255,0.65), rgba(245,247,244,0.7))" }}>
 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
     <div style={{
-        width: 40, height: 40, borderRadius: 12,
-        background: `linear-gradient(135deg, ${C.accent}, #6b5ef7)`,
-        display: "grid", placeItems: "center", fontSize: 20,
-    }}>🩺</div>
-    <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 20 }}>
+        width: 42, height: 42, borderRadius: 14,
+        background: `linear-gradient(180deg, ${C.text}, ${C.accent})`,
+        color: "#fff",
+        display: "grid", placeItems: "center", fontSize: 13, fontWeight: 800, letterSpacing: 0.8,
+    }}>MB</div>
+    <div style={{ fontWeight: 800, fontSize: 20 }}>
         MediBot
     </div>
 </div>
-          <Badge color={C.green}>MongoDB Auth + Memory</Badge>
+          <Badge color={C.green}>Secure memory workspace</Badge>
           <div>
-            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 44, fontWeight: 800, lineHeight: 1.08, letterSpacing: -1 }}>
-              MediBot now remembers each user's conversations.
+            <div style={{ fontSize: 46, fontWeight: 800, lineHeight: 1.02, letterSpacing: -1.4 }}>
+              A cleaner clinical workspace for every conversation.
             </div>
             <div style={{ color: C.textMuted, marginTop: 18, lineHeight: 1.7, maxWidth: 540, fontSize: 17 }}>
-              Sign in to create private chat sessions, continue follow-up questions, and keep your consultation history attached to your account.
+              Sign in to review symptoms, attach images, continue follow-up questions, and keep your consultation history attached to your account.
             </div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 18, marginTop: 18 }}>
             {[
-              ["Private sessions", "Each user gets isolated chats in MongoDB."],
-              ["Conversation memory", "Recent messages are reused for follow-up answers."],
-              ["Saved history", "Past questions are searchable after login."],
-              ["Token auth", "Frontend keeps a secure session token per device."],
+              ["Private sessions", "Each account gets isolated conversations and session memory."],
+              ["Image analysis", "Attach disease photos and review them inside the same thread."],
+              ["Saved history", "Past consultations remain searchable after login."],
+              ["Focused workflow", "One professional workspace for chat, docs, uploads, and settings."],
             ].map(([title, text]) => (
               <div
                 key={title}
                 style={{
                   background: C.card,
-                  border: `1.5px solid ${C.border}`,
-                  borderRadius: 20,
+                  border: `1px solid ${C.border}`,
+                  borderRadius: 24,
                   padding: 22,
                   minHeight: 90,
-                  boxShadow: "0 2px 8px 0 rgba(44, 62, 80, 0.08)",
+                  boxShadow: "0 14px 30px rgba(17, 23, 20, 0.04)",
                 }}
               >
                 <div style={{ fontWeight: 700, marginBottom: 8, fontSize: 16 }}>{title}</div>
@@ -98,7 +99,7 @@ function AuthScreen({ onAuthenticated }) {
           </div>
         </div>
 
-        <div style={{ padding: "clamp(24px, 5vw, 48px)", background: "linear-gradient(180deg, rgba(24,28,39,0.98), rgba(19,22,30,1))", display: "flex", flexDirection: "column", justifyContent: "center", minHeight: 480 }}>
+        <div style={{ padding: "clamp(24px, 5vw, 48px)", background: "linear-gradient(180deg, rgba(252,253,252,0.94), rgba(245,247,244,0.94))", display: "flex", flexDirection: "column", justifyContent: "center", minHeight: 480 }}>
           <div style={{ display: "flex", gap: 14, marginBottom: 32 }}>
             {["login", "register"].map((value) => (
               <button
@@ -107,12 +108,13 @@ function AuthScreen({ onAuthenticated }) {
                 style={{
                   flex: 1,
                   padding: "12px 16px",
-                  borderRadius: 14,
+                  borderRadius: 16,
                   border: "none",
                   cursor: "pointer",
-                  background: mode === value ? C.accent : C.card,
+                  background: mode === value ? C.text : C.card,
                   color: mode === value ? "#fff" : C.textMuted,
-                  fontWeight: 700,
+                  fontWeight: 800,
+                  boxShadow: mode === value ? "0 12px 24px rgba(17, 23, 20, 0.12)" : "none",
                 }}
               >
                 {value === "login" ? "Login" : "Register"}
@@ -137,13 +139,13 @@ function AuthScreen({ onAuthenticated }) {
               style={{
                 marginTop: 8,
                 padding: "14px 18px",
-                borderRadius: 14,
+                borderRadius: 16,
                 border: "none",
                 cursor: "pointer",
-                background: `linear-gradient(135deg, ${C.accent}, #6b5ef7)`,
+                background: C.text,
                 color: "#fff",
-                fontWeight: 700,
-                boxShadow: `0 10px 30px ${C.accentGlow}`,
+                fontWeight: 800,
+                boxShadow: "0 16px 28px rgba(17, 23, 20, 0.18)",
                 opacity: loading ? 0.7 : 1,
               }}
             >
@@ -160,9 +162,9 @@ function AuthScreen({ onAuthenticated }) {
     type="button"
     onClick={handleGoogleLogin}
     style={{
-        width: "100%", padding: "13px 18px", borderRadius: 14,
+        width: "100%", padding: "13px 18px", borderRadius: 16,
         border: "1px solid var(--app-border)",
-        background: "var(--app-surface)",
+        background: "var(--app-card)",
         color: "var(--app-text)", fontWeight: 700,
         cursor: "pointer", display: "flex",
         alignItems: "center", justifyContent: "center", gap: 10,

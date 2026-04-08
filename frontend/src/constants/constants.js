@@ -20,23 +20,22 @@ export const C = {
 };
 
 export const PAGE_META = {
-  chat:      { title: "Chat",      subtitle: "Continue saved consultations with session memory" },
-  upload:    { title: "Upload",    subtitle: "Analyze prescriptions and reports" },
-  history:   { title: "History",   subtitle: "Your past conversations" },
-  analytics: { title: "Analytics", subtitle: "Usage insights & statistics" },
-  api_sdk:   { title: "API SDK",   subtitle: "Integrate MediBot into your applications" },
-  docs:      { title: "Docs",      subtitle: "Use cases and documentation" },
-  settings:  { title: "Settings",  subtitle: "Configure your assistant" },
-  plans:     { title: "Plans",     subtitle: "Choose your subscription plan" },
+  chat:      { title: "MediBot",   subtitle: "Clinical conversations, image review, and session memory in one workspace" },
+  upload:    { title: "Uploads",   subtitle: "Turn prescriptions, scans, and reports into structured analysis" },
+  history:   { title: "History",   subtitle: "Search previous consultations and revisit saved answers" },
+  analytics: { title: "Analytics", subtitle: "Usage trends, response volume, and workspace activity" },
+  api_sdk:   { title: "API SDK",   subtitle: "Integrate MediBot into product flows and internal tooling" },
+  docs:      { title: "Docs",      subtitle: "Guides, workflows, and product reference" },
+  settings:  { title: "Settings",  subtitle: "Profile, notifications, appearance, and safeguards" },
+  plans:     { title: "Plans",     subtitle: "Review access tiers and platform capabilities" },
 };
 
 export const NAV = [
-  { id: "chat", icon: "💬", label: "Chat" },
-  { id: "upload", icon: "📋", label: "Upload" },
-  { id: "history", icon: "🕐", label: "History" },
-  { id: "analytics", icon: "📊", label: "Analytics" },
-  // { id: "plans", icon: "💰", label: "Plans" },
-  { id: "api_sdk", icon: "🔧", label: "API SDK" },
-  { id: "docs", icon: "📖", label: "Docs" },
-  { id: "settings", icon: "⚙️", label: "Settings" },
+  { id: "chat", icon: "CH", label: "Chat" },
+  { id: "upload", icon: "UP", label: "Upload" },
+  { id: "history", icon: "HI", label: "History" },
+  { id: "analytics", icon: "AN", label: "Analytics" },
+  { id: "api_sdk", icon: "API", label: "API SDK" },
+  { id: "docs", icon: "DOC", label: "Docs" },
+  { id: "settings", icon: "SET", label: "Settings" },
 ];
